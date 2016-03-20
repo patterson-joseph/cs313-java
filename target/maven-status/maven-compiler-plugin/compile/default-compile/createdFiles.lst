@@ -1,4 +1,7 @@
+summoner\SummonerCreate.class
 post\Read.class
-helloWorld\HelloServlet.class
 post\Create.class
+helloWorld\HelloServlet.class
+summoner\SummonerList.class
+summoner\SummonerDetails.class
 user\Login.class
