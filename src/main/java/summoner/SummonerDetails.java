@@ -78,7 +78,7 @@ public class SummonerDetails extends HttpServlet {
         RiotAPI.getMatchList(summoner_id);
         
         Summoner summoners = db.get(Summoner.class, summoner_id);
-        
+
         request.setAttribute("summoner", summoners);
         request.getRequestDispatcher("summoner_details.jsp").forward(request,response);
     }

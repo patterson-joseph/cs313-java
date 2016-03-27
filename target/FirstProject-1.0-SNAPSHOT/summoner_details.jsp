@@ -9,11 +9,18 @@
     </head>
     <body>
         <div>
-            <h1>Summoner</h1>
-            <c:out value="${summoner}"/>
+            <h1><c:out value="${summoner}"/></h1>
             <img src="http://ddragon.leagueoflegends.com/cdn/6.5.1/img/profileicon/<c:out value="${summoner.getProfileIconID()}"/>.png" /><br />
-            <c:out value="${summoner.getLeagues()}"/>
-            <c:out value="${summoner.getMatchList()}"/>
+            <h3>League: <c:out value="${summoner.getLeagues().get(0).getTier()}"/></h3>
+            <h3>Games</h3>
+            <div>
+                <c:forEach var="game" items="${summoner.getMatchList()}">
+                    <hr>
+                    <div>Game ID: ${game.getID()}</div>
+                    <div>Lane: ${game.getLane()}</div>
+                    <div>Role: ${game.getRole()}</div>
+                </c:forEach>
+            </div>
         </div> 
         <a href="/FirstProject/add_summoner.jsp">Add Summoner</a>
     </body> 
