@@ -6,14 +6,23 @@
 package summoner;
 
 import com.robrua.orianna.api.core.RiotAPI;
+import com.robrua.orianna.store.CloseableIterator;
 import com.robrua.orianna.store.DataStore;
 import com.robrua.orianna.store.HibernateDB;
+import com.robrua.orianna.type.api.LoadPolicy;
 import com.robrua.orianna.type.core.summoner.Summoner;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Class;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,7 +76,10 @@ public class SummonerList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HibernateDB db = HibernateDB.builder().URL("jdbc:mysql://" + System.getenv("OPENSHIFT_MYSQL_DB_HOST") + "/java").username(System.getenv("OPENSHIFT_MYSQL_DB_USERNAME")).password(System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD")).build();
+        RiotAPI.setLoadPolicy(LoadPolicy.LAZY);
         List summoners = db.getAll(Summoner.class);
+        
+        summoners = summoners.subList(0, 100);
         
         request.setAttribute("summoners", summoners);
         request.getRequestDispatcher("summoner_list.jsp").forward(request,response);

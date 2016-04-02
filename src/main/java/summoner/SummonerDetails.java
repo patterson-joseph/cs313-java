@@ -7,6 +7,7 @@ package summoner;
 
 import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.store.HibernateDB;
+import com.robrua.orianna.type.api.LoadPolicy;
 import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.summoner.Summoner;
 import java.io.IOException;
@@ -71,6 +72,7 @@ public class SummonerDetails extends HttpServlet {
 
         HibernateDB db = HibernateDB.builder().URL("jdbc:mysql://" + System.getenv("OPENSHIFT_MYSQL_DB_HOST") + "/java").username(System.getenv("OPENSHIFT_MYSQL_DB_USERNAME")).password(System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD")).build();
         RiotAPI.setDataStore(db);
+        RiotAPI.setLoadPolicy(LoadPolicy.LAZY);
 
         // Do your thing here. Data will be cached in the Hibernate DB as it would with the standard in-memory cache.
         long summoner_id = Integer.parseInt(request.getParameter("id"));

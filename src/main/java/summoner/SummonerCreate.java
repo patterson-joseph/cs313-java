@@ -8,6 +8,7 @@ package summoner;
 import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.store.DataStore;
 import com.robrua.orianna.store.HibernateDB;
+import com.robrua.orianna.type.api.LoadPolicy;
 import com.robrua.orianna.type.core.common.Region;
 import com.robrua.orianna.type.core.summoner.Summoner;
 import java.io.IOException;
@@ -88,6 +89,7 @@ public class SummonerCreate extends HttpServlet {
                 break;
         }
         
+        RiotAPI.setLoadPolicy(LoadPolicy.LAZY);
         RiotAPI.setRegion(region);
         RiotAPI.setAPIKey("46f55837-83a0-4e5c-826f-283ea7b47fc3");
 
